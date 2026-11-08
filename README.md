@@ -47,3 +47,10 @@ This avoids silently guessing a decimal approximation for a value that already l
 
 - `Matrix` -- constructed from `Matrix([[...], [...]])` with int, str, float, or Fraction entries. Methods: `shape()`, `to_list()`, `det()`, `inverse()`, `minor(row, col)`. Operators: `+`, `*` (scalar or matrix), `==`.
 - `eye(n)` -- returns the `n x n` identity matrix.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
